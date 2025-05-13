@@ -10,16 +10,28 @@
 
 // Función para determinar el tipo de día según el número del 1 al 7
 fn get_day_type(day_number: u32) -> felt252 {
-    // Implementamos la lógica usando match
-    let day_type: felt252 = '';
-    day_type 
+    // Usamos match para verificar el valor de day_number
+    match day_number {
+        0 => 'invalid', // 0 no es un día válido
+        1 => 'weekday', // Lunes
+        2 => 'weekday', // Martes
+        3 => 'weekday', // Miércoles
+        4 => 'weekday', // Jueves
+        5 => 'weekday', // Viernes
+        6 => 'weekend', // Sábado
+        7 => 'weekend', // Domingo
+        _ => 'invalid',  // Cualquier otro número es inválido
+    }
 }
 
 // Función que utiliza if/else para determinar si un número es par o impar
 fn check_even_odd(num: u32) -> felt252 {
-    // Implementamos la lógica usando if/else
-    let check_even_odd: felt252 = '';
-    check_even_odd 
+    // Usamos if/else para verificar si es par o impar
+    if num % 2 == 0 {
+        'even' // Par
+    } else {
+        'odd'  // Impar
+    }
 }
 
 #[cfg(test)]

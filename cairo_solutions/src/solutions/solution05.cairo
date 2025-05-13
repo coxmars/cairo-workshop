@@ -10,29 +10,33 @@
 
 use core::dict::Felt252Dict;
 
-// Función para crear un nuevo diccionario con algunos valores iniciales
+// Función para crear un nuevo diccionario con valores iniciales
 fn create_user_balances() -> Felt252Dict<u64> {
-    // TODO: Crea un nuevo diccionario e inserta algunos valores iniciales
-    // Crea balances para los usuarios: 'alice' -> 100, 'bob' -> 200
+    // Creamos un nuevo diccionario vacío
     let mut balances: Felt252Dict<u64> = Default::default();
     
-    // Tu código aquí: Inserta balances para Alice y Bob
+    // Insertamos balances iniciales para Alice y Bob
+    balances.insert('alice', 100);
+    balances.insert('bob', 200);
     
     balances
 }
 
 // Función para obtener el balance de un usuario
-// Nota: usamos una referencia (ref) para no consumir el diccionario
+// Usamos una referencia para no consumir el diccionario
 fn get_user_balance(ref balances: Felt252Dict<u64>, user: felt252) -> u64 {
-    // TODO: Implementa esta función para obtener el balance de un usuario
+    // Obtenemos el balance del usuario del diccionario
     // Si el usuario no existe, get() devuelve 0 por defecto
-    0
+    balances.get(user)
 }
 
 // Función para sumar un monto al balance existente
 fn add_to_balance(ref balances: Felt252Dict<u64>, user: felt252, amount: u64) {
-    // TODO: Implementa esta función para sumar un monto al balance existente
-    // Primero obtén el balance actual, luego suma y actualiza
+    // Obtenemos el balance actual del usuario
+    let current_balance = balances.get(user);
+    
+    // Sumamos el monto al balance actual y actualizamos el diccionario
+    balances.insert(user, current_balance + amount);
 }
 
 #[cfg(test)]
@@ -43,6 +47,7 @@ mod tests {
     fn test_create_balances() {
         let mut balances = create_user_balances();
         
+        // Ahora pasamos el diccionario por referencia
         assert(get_user_balance(ref balances, 'alice') == 100, 'Alice debe tener 100');
         assert(get_user_balance(ref balances, 'bob') == 200, 'Bob debe tener 200');
         assert(get_user_balance(ref balances, 'charlie') == 0, 'Charlie debe tener 0');
